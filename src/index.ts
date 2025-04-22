@@ -15,7 +15,9 @@ export class IrisOut {
   private overlay: HTMLDivElement | null = null;
   private highlightedElement: HTMLElement | null = null;
   private resizeObserver: ResizeObserver | null = null;
-  updateHandler: () => void;
+  private updateHandler: () => void;
+  private onCutoutUpdate: null | ((rect: DOMRect) => void) = null;
+  private onClear: null | (() => void) = null;
 
   constructor(options: IrisOutOptions = {}) {
     // Check if running in browser environment
@@ -105,7 +107,23 @@ export class IrisOut {
    * Highlight a DOM element by shading everything else
    * @param element The element to highlight
    */
-  public highlight(element: HTMLElement): void {
+  public highlight(
+    element: HTMLElement,
+    updateCb?: null | ((rect: DOMRect) => void),
+    onClear?: null | (() => void)
+  ): void {
+    if (updateCb) {
+      this.onCutoutUpdate = updateCb;
+    } else {
+      this.onCutoutUpdate = null;
+    }
+
+    if (onClear) {
+      this.onClear = onClear;
+    } else {
+      this.onClear = null;
+    }
+
     // Clear any existing highlight first
     this.clear(() => this.renderOverlay(element));
   }
@@ -116,6 +134,8 @@ export class IrisOut {
   public clear(cb?: () => void): void {
     // Stop observing resize
     this.removeResizeObserver();
+
+    const onClear = this.onClear;
 
     if (this.overlay) {
       // Animate opacity to 0 and then remove
@@ -128,9 +148,11 @@ export class IrisOut {
         this.overlay = null;
         this.highlightedElement = null;
 
+        onClear && onClear();
         cb && cb();
       }, this._options.fadeDuration || 300);
     } else {
+      onClear && onClear();
       cb && cb();
     }
   }
@@ -142,6 +164,10 @@ export class IrisOut {
     if (!this.highlightedElement) return;
 
     const rect = this.highlightedElement.getBoundingClientRect();
+
+    if (this.onCutoutUpdate) {
+      this.onCutoutUpdate(rect);
+    }
 
     // Create clip-path CSS for the overlay
     if (this.overlay) {

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add click event to each card to highlight it
   cards.forEach(card => {
     card.addEventListener('click', () => {
-      iris.highlight(card as HTMLElement);
+      iris.highlight(card as HTMLElement, console.log, () => console.log('Card cleared'));
     });
   });
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card1Btn.addEventListener('click', () => {
       const card1 = document.getElementById('card1');
       if (card1) {
-        iris.highlight(card1);
+        iris.highlight(card1, console.log, () => console.log('Card cleared'));
       }
     });
   }
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card3Btn.addEventListener('click', () => {
       const card3 = document.getElementById('card3');
       if (card3) {
-        iris.highlight(card3);
+        iris.highlight(card3, console.log, () => console.log('Card cleared'));
       }
     });
   }
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card5Btn.addEventListener('click', () => {
       const card5 = document.getElementById('card5');
       if (card5) {
-        iris.highlight(card5);
+        iris.highlight(card5, console.log, () => console.log('Card cleared'));
       }
     });
   }
