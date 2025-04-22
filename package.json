@@ -10,8 +10,12 @@
     "dev": "webpack serve --config webpack.config.js --mode development",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.ts\" \"demo/**/*.ts\"",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run test && npm run build",
     "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/iris-out.git"
   },
   "keywords": [
     "highlight",
