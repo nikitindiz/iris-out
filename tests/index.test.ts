@@ -211,4 +211,58 @@ describe('Iris', () => {
       fail('Test element not found in the DOM');
     }
   });
+
+  test('should call updateCb callback when cutout is updated', () => {
+    const iris = new IrisOut();
+    const element = document.getElementById('test-element');
+    const updateCbMock = jest.fn();
+
+    if (element) {
+      // Mock the getBoundingClientRect to simulate element position
+      const mockRect = { left: 50, top: 50, width: 200, height: 100 };
+      element.getBoundingClientRect = jest.fn(() => mockRect as DOMRect);
+
+      // Highlight with the updateCb callback
+      iris.highlight(element, updateCbMock);
+
+      // Should be called during initial highlight
+      expect(updateCbMock).toHaveBeenCalledWith(mockRect);
+
+      // Clear the mock to test subsequent updates
+      updateCbMock.mockClear();
+
+      // Simulate a cutout update
+      iris.updateHandler();
+
+      // Should be called again on update
+      expect(updateCbMock).toHaveBeenCalledWith(mockRect);
+    } else {
+      fail('Test element not found in the DOM');
+    }
+  });
+
+  test('should call onClear callback when clear is executed', done => {
+    const iris = new IrisOut({
+      fadeDuration: 10, // Speed up the test
+    });
+    const element = document.getElementById('test-element');
+    const onClearMock = jest.fn();
+
+    if (element) {
+      // Highlight with the onClear callback
+      iris.highlight(element, null, onClearMock);
+
+      // Verify the overlay was created
+      const overlay = document.body.querySelector('div:not(#test-element)');
+      expect(overlay).not.toBeNull();
+
+      // Clear the highlight
+      iris.clear(() => {
+        expect(onClearMock).toHaveBeenCalled();
+        done();
+      });
+    } else {
+      fail('Test element not found in the DOM');
+    }
+  });
 });
