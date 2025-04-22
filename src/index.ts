@@ -26,14 +26,7 @@ export class Iris {
     };
   }
 
-  /**
-   * Highlight a DOM element by shading everything else
-   * @param element The element to highlight
-   */
-  public highlight(element: HTMLElement): void {
-    // Clear any existing highlight first
-    this.clear();
-
+  private renderOverlay(element: HTMLElement): void {
     this.highlightedElement = element;
 
     // Create overlay
@@ -67,9 +60,18 @@ export class Iris {
   }
 
   /**
+   * Highlight a DOM element by shading everything else
+   * @param element The element to highlight
+   */
+  public highlight(element: HTMLElement): void {
+    // Clear any existing highlight first
+    this.clear(this.renderOverlay.bind(this, element));
+  }
+
+  /**
    * Remove the highlighting overlay
    */
-  public clear(): void {
+  public clear(cb?: () => void): void {
     // Stop observing resize
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
@@ -86,7 +88,11 @@ export class Iris {
         }
         this.overlay = null;
         this.highlightedElement = null;
+
+        cb && cb();
       }, this.options.animationDuration || 300);
+    } else {
+      cb && cb();
     }
   }
 
@@ -126,6 +132,7 @@ export class Iris {
     // Update on scroll
     const scrollHandler = () => this.updateCutout();
     window.addEventListener('scroll', scrollHandler);
+    window.addEventListener('resize', scrollHandler);
 
     // Update on resize with ResizeObserver
     this.resizeObserver = new ResizeObserver(() => {
