@@ -15,7 +15,7 @@ export class IrisOut {
   private overlay: HTMLDivElement | null = null;
   private highlightedElement: HTMLElement | null = null;
   private resizeObserver: ResizeObserver | null = null;
-  private updateHandler: () => void;
+  updateHandler: () => void;
   private onCutoutUpdate: null | ((rect: DOMRect) => void) = null;
   private onClear: null | (() => void) = null;
 
