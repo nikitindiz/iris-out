@@ -15,6 +15,8 @@ export class Iris {
   private overlay: HTMLDivElement | null = null;
   private highlightedElement: HTMLElement | null = null;
   private resizeObserver: ResizeObserver | null = null;
+  scrollHandler: () => void;
+  resizeHandler: () => void;
 
   constructor(options: IrisOptions = {}) {
     this.options = {
@@ -24,9 +26,13 @@ export class Iris {
       animationDuration: 300,
       ...options,
     };
+
+    // Update on scroll
+    this.scrollHandler = () => this.updateCutout();
+    this.resizeHandler = () => this.updateCutout();
   }
 
-  private renderOverlay(element: HTMLElement): void {
+  private renderOverlay = (element: HTMLElement): void => {
     this.highlightedElement = element;
 
     // Create overlay
@@ -57,7 +63,7 @@ export class Iris {
         this.overlay.style.opacity = `${this.options.opacity || 0.7}`;
       }
     }, 10);
-  }
+  };
 
   /**
    * Highlight a DOM element by shading everything else
@@ -65,7 +71,7 @@ export class Iris {
    */
   public highlight(element: HTMLElement): void {
     // Clear any existing highlight first
-    this.clear(this.renderOverlay.bind(this, element));
+    this.clear(() => this.renderOverlay(element));
   }
 
   /**
@@ -73,10 +79,7 @@ export class Iris {
    */
   public clear(cb?: () => void): void {
     // Stop observing resize
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = null;
-    }
+    this.removeResizeObserver();
 
     if (this.overlay) {
       // Animate opacity to 0 and then remove
@@ -100,6 +103,8 @@ export class Iris {
    * Update the cutout position and size when element changes
    */
   private updateCutout(): void {
+    console.log('Updating cutout');
+
     if (!this.highlightedElement) return;
 
     const rect = this.highlightedElement.getBoundingClientRect();
@@ -129,10 +134,8 @@ export class Iris {
   private observeResize(): void {
     if (!this.highlightedElement) return;
 
-    // Update on scroll
-    const scrollHandler = () => this.updateCutout();
-    window.addEventListener('scroll', scrollHandler);
-    window.addEventListener('resize', scrollHandler);
+    window.addEventListener('scroll', this.scrollHandler);
+    window.addEventListener('resize', this.resizeHandler);
 
     // Update on resize with ResizeObserver
     this.resizeObserver = new ResizeObserver(() => {
@@ -140,11 +143,20 @@ export class Iris {
     });
 
     this.resizeObserver.observe(this.highlightedElement);
+  }
+
+  private removeResizeObserver = (): void => {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
 
     // Clean up event listener when overlay is removed
     if (this.overlay) {
+      console.log('Adding transition end listener');
       const cleanupScrollHandler = () => {
-        window.removeEventListener('scroll', scrollHandler);
+        window.removeEventListener('scroll', this.scrollHandler);
+        window.removeEventListener('resize', this.resizeHandler);
         if (this.overlay) {
           this.overlay.removeEventListener('transitionend', cleanupScrollHandler);
         }
@@ -152,7 +164,7 @@ export class Iris {
 
       this.overlay.addEventListener('transitionend', cleanupScrollHandler);
     }
-  }
+  };
 }
 
 export default Iris;
