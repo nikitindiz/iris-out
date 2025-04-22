@@ -1,5 +1,5 @@
 {
-  "name": "iris-out",
+  "name": "@nikitindiz/iris-out",
   "version": "0.1.0",
   "description": "A library for highlighting selected DOM elements by shading everything else",
   "main": "dist/index.js",

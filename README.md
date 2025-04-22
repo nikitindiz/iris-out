@@ -5,19 +5,19 @@ A lightweight library for highlighting DOM elements by shading everything else o
 ## Installation
 
 ```bash
-npm install iris-out
+npm install @nikitindiz/iris-out
 ```
 
 or
 
 ```bash
-yarn add iris-out
+yarn add @nikitindiz/iris-out
 ```
 
 ## Usage
 
 ```typescript
-import Iris from 'iris-out';
+import Iris from '@nikitindiz/iris-out';
 
 // Initialize with default options
 const iris = new Iris();
