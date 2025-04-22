@@ -108,8 +108,6 @@ export class Iris {
    * Update the cutout position and size when element changes
    */
   private updateCutout(): void {
-    console.log('Updating cutout');
-
     if (!this.highlightedElement) return;
 
     const rect = this.highlightedElement.getBoundingClientRect();
@@ -158,7 +156,6 @@ export class Iris {
 
     // Clean up event listener when overlay is removed
     if (this.overlay) {
-      console.log('Adding transition end listener');
       const cleanupScrollHandler = () => {
         window.removeEventListener('scroll', this.scrollHandler);
         window.removeEventListener('resize', this.resizeHandler);

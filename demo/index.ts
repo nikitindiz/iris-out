@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const card3Btn = document.getElementById('card3-btn');
   const card5Btn = document.getElementById('card5-btn');
   const clearBtn = document.getElementById('clear-btn');
-  
+
   // Control elements
   const bgColorInput = document.getElementById('bg-color') as HTMLInputElement;
   const opacityInput = document.getElementById('opacity') as HTMLInputElement;
@@ -36,18 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const color = bgColorInput.value;
     const opacity = parseFloat(opacityInput.value);
     const rgbaColor = `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${opacity})`;
-    
+
     currentOptions = {
       backgroundColor: rgbaColor,
       opacity: opacity,
       zIndex: 9999,
       animationDuration: parseInt(animationDurationInput.value),
     };
-    
+
     // Create a new instance with updated options
     iris = new Iris(currentOptions);
-    
-    console.log('Updated Iris options:', currentOptions);
   }
 
   // Add event listeners to form controls
@@ -98,6 +96,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize with default options
   updateIrisOptions();
-  
-  console.log('Iris-Out demo initialized!');
 });
