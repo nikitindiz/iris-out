@@ -1,0 +1,25 @@
+/* Additional styles for the demo */
+.code-sample {
+  background-color: #f7f7f7;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+  font-family: monospace;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.info-panel {
+  background-color: #e3f2fd;
+  padding: 15px;
+  border-left: 4px solid #2196f3;
+  margin: 20px 0;
+}
+
+.footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  color: #666;
+}

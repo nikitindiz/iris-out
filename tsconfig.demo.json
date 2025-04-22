@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "lib": ["es2018", "dom"],
+    "outDir": "./dist/demo"
+  },
+  "include": ["demo", "src"],
+  "exclude": ["node_modules", "dist"]
+}

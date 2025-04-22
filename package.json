@@ -6,8 +6,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build:demo": "webpack --config webpack.config.js",
+    "dev": "webpack serve --config webpack.config.js --mode development",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"demo/**/*.ts\"",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -20,8 +22,15 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.24",
+    "css-loader": "^6.10.0",
+    "html-webpack-plugin": "^5.6.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
+    "style-loader": "^3.3.4",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "files": [
     "dist"
