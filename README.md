@@ -30,6 +30,23 @@ iris.highlight(elementToHighlight);
 iris.clear();
 ```
 
+### With Callbacks
+
+```typescript
+// Highlight element with callbacks
+iris.highlight(
+  elementToHighlight,
+  // Update callback - called whenever the cutout position changes
+  rect => {
+    console.log('Element position updated:', rect);
+  },
+  // Clear callback - called when the highlight is cleared
+  () => {
+    console.log('Highlight was cleared');
+  }
+);
+```
+
 ## Options
 
 You can customize the highlighting effect by passing options to the constructor:
@@ -63,6 +80,36 @@ iris.options = {
 ```
 
 When you update options while an element is highlighted, the changes take effect immediately.
+
+## Callbacks
+
+The `highlight` method accepts two optional callback parameters:
+
+### Update Callback
+
+```typescript
+// Called whenever the highlighted element's position is updated
+function updateCallback(rect: DOMRect): void {
+  console.log('Element position:', rect.top, rect.left, rect.width, rect.height);
+}
+
+iris.highlight(element, updateCallback);
+```
+
+This is useful for synchronizing other UI elements with the highlighted element's position.
+
+### Clear Callback
+
+```typescript
+// Called when the highlight is cleared
+function clearCallback(): void {
+  console.log('Highlight was cleared');
+}
+
+iris.highlight(element, null, clearCallback);
+```
+
+This lets you execute code when the highlight is removed, either manually or through the `clear()` method.
 
 ## License
 
