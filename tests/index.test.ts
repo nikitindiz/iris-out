@@ -56,7 +56,7 @@ describe('Iris', () => {
       backgroundColor: 'rgba(255, 0, 0, 0.5)',
       opacity: 0.5,
       zIndex: 1000,
-      animationDuration: 500,
+      fadeDuration: 500,
     };
 
     const iris = new Iris(options);
@@ -81,7 +81,7 @@ describe('Iris', () => {
 
   test('should clear highlight when requested', done => {
     const iris = new Iris({
-      animationDuration: 10, // Speed up the test with shorter animation
+      fadeDuration: 10, // Speed up the test with shorter animation
     });
     const element = document.getElementById('test-element');
 
@@ -128,7 +128,7 @@ describe('Iris', () => {
 
   test('should clean up event listeners when cleared', done => {
     const iris = new Iris({
-      animationDuration: 10, // Speed up the test
+      fadeDuration: 10, // Speed up the test
     });
     const element = document.getElementById('test-element');
 
@@ -170,7 +170,7 @@ describe('Iris', () => {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       opacity: 0.7,
       zIndex: 9999,
-      animationDuration: 300,
+      fadeDuration: 300,
     });
 
     const element = document.getElementById('test-element');
@@ -194,7 +194,7 @@ describe('Iris', () => {
         backgroundColor: 'rgba(255, 0, 0, 0.5)',
         opacity: 0.5,
         zIndex: 5000,
-        animationDuration: 500,
+        fadeDuration: 500,
       };
 
       // Verify the overlay properties were updated

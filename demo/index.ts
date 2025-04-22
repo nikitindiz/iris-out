@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     opacity: 0.7,
     zIndex: 9999,
-    animationDuration: 300,
+    fadeDuration: 300,
   };
 
   // Get DOM elements
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgColorInput = document.getElementById('bg-color') as HTMLInputElement;
   const opacityInput = document.getElementById('opacity') as HTMLInputElement;
   const opacityValue = document.getElementById('opacity-value');
-  const animationDurationInput = document.getElementById('animation-duration') as HTMLInputElement;
+  const fadeDurationInput = document.getElementById('animation-duration') as HTMLInputElement;
 
   // Update opacity display when slider changes
   opacityInput.addEventListener('input', () => {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backgroundColor: rgbaColor,
       opacity: opacity,
       zIndex: 9999,
-      animationDuration: parseInt(animationDurationInput.value),
+      fadeDuration: parseInt(fadeDurationInput.value),
     };
 
     // Update options of existing Iris instance instead of creating a new one
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add event listeners to form controls
   bgColorInput.addEventListener('change', updateIrisOptions);
   opacityInput.addEventListener('change', updateIrisOptions);
-  animationDurationInput.addEventListener('change', updateIrisOptions);
+  fadeDurationInput.addEventListener('change', updateIrisOptions);
 
   // Add click event to each card to highlight it
   cards.forEach(card => {

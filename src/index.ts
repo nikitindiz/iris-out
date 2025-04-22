@@ -7,7 +7,7 @@ export interface IrisOptions {
   backgroundColor?: string;
   opacity?: number;
   zIndex?: number;
-  animationDuration?: number;
+  fadeDuration?: number;
 }
 
 export class Iris {
@@ -27,7 +27,7 @@ export class Iris {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       opacity: 0.7,
       zIndex: 9999,
-      animationDuration: 300,
+      fadeDuration: 300,
       ...options,
     };
 
@@ -59,8 +59,8 @@ export class Iris {
         this.overlay.style.zIndex = `${newOptions.zIndex}`;
       }
 
-      if (newOptions.animationDuration !== undefined) {
-        this.overlay.style.transition = `opacity ${newOptions.animationDuration}ms ease`;
+      if (newOptions.fadeDuration !== undefined) {
+        this.overlay.style.transition = `opacity ${newOptions.fadeDuration}ms ease`;
       }
 
       // Re-apply the cutout effect with potentially new styles
@@ -80,7 +80,7 @@ export class Iris {
     this.overlay.style.height = '100%';
     this.overlay.style.backgroundColor = this._options.backgroundColor || 'rgba(0, 0, 0, 0.7)';
     this.overlay.style.opacity = '0';
-    this.overlay.style.transition = `opacity ${this._options.animationDuration}ms ease`;
+    this.overlay.style.transition = `opacity ${this._options.fadeDuration}ms ease`;
     this.overlay.style.zIndex = `${this._options.zIndex || 9999}`;
     this.overlay.style.pointerEvents = 'none'; // Allow clicking through the overlay
 
@@ -129,7 +129,7 @@ export class Iris {
         this.highlightedElement = null;
 
         cb && cb();
-      }, this._options.animationDuration || 300);
+      }, this._options.fadeDuration || 300);
     } else {
       cb && cb();
     }

@@ -37,11 +37,32 @@ You can customize the highlighting effect by passing options to the constructor:
 ```typescript
 const iris = new Iris({
   backgroundColor: 'rgba(0, 0, 0, 0.7)', // Background color of the overlay
-  opacity: 0.7,                          // Opacity of the overlay
-  zIndex: 9999,                          // z-index of the overlay
-  animationDuration: 300                 // Duration of animation in milliseconds
+  opacity: 0.7, // Opacity of the overlay
+  zIndex: 9999, // z-index of the overlay
+  fadeDuration: 300, // Duration of animation in milliseconds
 });
 ```
+
+### Updating Options
+
+You can update options after initialization using the options setter:
+
+```typescript
+// Update all options
+iris.options = {
+  backgroundColor: 'rgba(255, 0, 0, 0.5)',
+  opacity: 0.5,
+  zIndex: 1000,
+  fadeDuration: 500,
+};
+
+// Or just update specific options
+iris.options = {
+  backgroundColor: 'rgba(0, 0, 255, 0.3)',
+};
+```
+
+When you update options while an element is highlighted, the changes take effect immediately.
 
 ## License
 

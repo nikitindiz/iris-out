@@ -1,68 +1,61 @@
-
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Code coverage report for index.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
-        }
+    <style type="text/css">
+      .coverage-summary .sorter {
+        background-image: url(sort-arrow-sprite.png);
+      }
     </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="pad1">
         <h1><a href="index.html">All files</a> index.ts</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">91.86% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>79/86</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">78.78% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>26/33</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>12/14</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">93.58% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>73/78</span>
-            </div>
-        
-            
+        <div class="clearfix">
+          <div class="fl pad1y space-right2">
+            <span class="strong">91.86% </span>
+            <span class="quiet">Statements</span>
+            <span class="fraction">79/86</span>
+          </div>
+
+          <div class="fl pad1y space-right2">
+            <span class="strong">78.78% </span>
+            <span class="quiet">Branches</span>
+            <span class="fraction">26/33</span>
+          </div>
+
+          <div class="fl pad1y space-right2">
+            <span class="strong">85.71% </span>
+            <span class="quiet">Functions</span>
+            <span class="fraction">12/14</span>
+          </div>
+
+          <div class="fl pad1y space-right2">
+            <span class="strong">93.58% </span>
+            <span class="quiet">Lines</span>
+            <span class="fraction">73/78</span>
+          </div>
         </div>
         <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+          Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>,
+          <em>p</em> or <em>k</em> for the previous block.
         </p>
         <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
+          <div class="quiet">
+            Filter:
+            <input type="search" id="fileSearch" />
+          </div>
         </template>
-    </div>
-    <div class='status-line high'></div>
-    <pre><table class="coverage">
+      </div>
+      <div class="status-line high"></div>
+      <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
 <a name='L3'></a><a href='#L3'>3</a>
@@ -480,7 +473,7 @@ export interface IrisOptions {
   backgroundColor?: string;
   opacity?: number;
   zIndex?: number;
-  animationDuration?: number;
+  fadeDuration?: number;
 }
 &nbsp;
 export class Iris {
@@ -500,7 +493,7 @@ export class Iris {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       opacity: 0.7,
       zIndex: 9999,
-      animationDuration: 300,
+      fadeDuration: 300,
       ...options,
     };
 &nbsp;
@@ -532,8 +525,8 @@ export class Iris {
         this.overlay.style.zIndex = `${newOptions.zIndex}`;
       }
 &nbsp;
-      if (newOptions.animationDuration !== undefined) {
-        this.overlay.style.transition = `opacity ${newOptions.animationDuration}ms ease`;
+      if (newOptions.fadeDuration !== undefined) {
+        this.overlay.style.transition = `opacity ${newOptions.fadeDuration}ms ease`;
       }
 &nbsp;
       // Re-apply the cutout effect with potentially new styles
@@ -553,7 +546,7 @@ export class Iris {
     this.overlay.style.height = '100%';
     this.overlay.style.backgroundColor = this._options.backgroundColor || <span class="branch-1 cbranch-no" title="branch not covered" >'rgba(0, 0, 0, 0.7)';</span>
     this.overlay.style.opacity = '0';
-    this.overlay.style.transition = `opacity ${this._options.animationDuration}ms ease`;
+    this.overlay.style.transition = `opacity ${this._options.fadeDuration}ms ease`;
     this.overlay.style.zIndex = `${this._options.zIndex || <span class="branch-1 cbranch-no" title="branch not covered" >9999}</span>`;
     this.overlay.style.pointerEvents = 'none'; // Allow clicking through the overlay
 &nbsp;
@@ -602,7 +595,7 @@ export class Iris {
         this.highlightedElement = null;
 &nbsp;
         cb &amp;&amp; cb();
-      }, this._options.animationDuration || <span class="branch-1 cbranch-no" title="branch not covered" >300)</span>;
+      }, this._options.fadeDuration || <span class="branch-1 cbranch-no" title="branch not covered" >300)</span>;
     } else {
       cb &amp;&amp; cb();
     }
@@ -677,21 +670,22 @@ export class Iris {
 export default Iris;
 &nbsp;</pre></td></tr></table></pre>
 
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-22T10:19:19.487Z
-            </div>
-        <script src="prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
-    </body>
+      <div class="push"></div>
+      <!-- for sticky footer -->
+    </div>
+    <!-- /wrapper -->
+    <div class="footer quiet pad2 space-top1 center small">
+      Code coverage generated by
+      <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+      at 2025-04-22T10:19:19.487Z
+    </div>
+    <script src="prettify.js"></script>
+    <script>
+      window.onload = function () {
+        prettyPrint();
+      };
+    </script>
+    <script src="sorter.js"></script>
+    <script src="block-navigation.js"></script>
+  </body>
 </html>
-    
