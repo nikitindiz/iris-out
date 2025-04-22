@@ -1,4 +1,4 @@
-import { Iris, IrisOptions } from '../src/index';
+import { IrisOut, IrisOutOptions } from '../src/index';
 import { JSDOM } from 'jsdom';
 
 describe('Iris', () => {
@@ -43,28 +43,28 @@ describe('Iris', () => {
     // @ts-ignore
     global.window = undefined;
 
-    expect(() => new Iris()).toThrow('Iris only works in browser environments');
+    expect(() => new IrisOut()).toThrow('Iris only works in browser environments');
   });
 
   test('should create an instance with default options', () => {
-    const iris = new Iris();
-    expect(iris).toBeInstanceOf(Iris);
+    const iris = new IrisOut();
+    expect(iris).toBeInstanceOf(IrisOut);
   });
 
   test('should accept custom options', () => {
-    const options: IrisOptions = {
+    const options: IrisOutOptions = {
       backgroundColor: 'rgba(255, 0, 0, 0.5)',
       opacity: 0.5,
       zIndex: 1000,
       fadeDuration: 500,
     };
 
-    const iris = new Iris(options);
-    expect(iris).toBeInstanceOf(Iris);
+    const iris = new IrisOut(options);
+    expect(iris).toBeInstanceOf(IrisOut);
   });
 
   test('should highlight an element', () => {
-    const iris = new Iris();
+    const iris = new IrisOut();
     const element = document.getElementById('test-element');
 
     if (element) {
@@ -80,7 +80,7 @@ describe('Iris', () => {
   });
 
   test('should clear highlight when requested', done => {
-    const iris = new Iris({
+    const iris = new IrisOut({
       fadeDuration: 10, // Speed up the test with shorter animation
     });
     const element = document.getElementById('test-element');
@@ -112,7 +112,7 @@ describe('Iris', () => {
     if (element) {
       element.getBoundingClientRect = jest.fn(() => mockRect as DOMRect);
 
-      const iris = new Iris();
+      const iris = new IrisOut();
       const updateCutoutSpy = jest.spyOn(iris as any, 'updateCutout');
 
       iris.highlight(element);
@@ -127,7 +127,7 @@ describe('Iris', () => {
   });
 
   test('should clean up event listeners when cleared', done => {
-    const iris = new Iris({
+    const iris = new IrisOut({
       fadeDuration: 10, // Speed up the test
     });
     const element = document.getElementById('test-element');
@@ -166,7 +166,7 @@ describe('Iris', () => {
   });
 
   test('should update overlay when options are changed', () => {
-    const iris = new Iris({
+    const iris = new IrisOut({
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       opacity: 0.7,
       zIndex: 9999,

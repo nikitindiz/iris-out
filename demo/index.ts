@@ -1,10 +1,10 @@
-import { Iris, IrisOptions } from '../src/index';
+import { IrisOut, IrisOutOptions } from '../src/index';
 import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Create a new instance of Iris with default options
-  let iris = new Iris();
-  let currentOptions: IrisOptions = {
+  // Create a new instance of IrisOut with default options
+  let iris = new IrisOut();
+  let currentOptions: IrisOutOptions = {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     opacity: 0.7,
     zIndex: 9999,
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Function to update Iris options based on form inputs
+  // Function to update IrisOut options based on form inputs
   function updateIrisOptions() {
     const color = bgColorInput.value;
     const opacity = parseFloat(opacityInput.value);
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fadeDuration: parseInt(fadeDurationInput.value),
     };
 
-    // Update options of existing Iris instance instead of creating a new one
+    // Update options of existing IrisOut instance instead of creating a new one
     iris.options = currentOptions;
   }
 

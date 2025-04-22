@@ -1,7 +1,7 @@
 TN:
 SF:src/index.ts
 FN:13,(anonymous_2)
-FN:20,Iris
+FN:20,IrisOut
 FN:71,(anonymous_4)
 FN:97,(anonymous_5)
 FN:182,(anonymous_6)
@@ -17,7 +17,7 @@ FN:175,(anonymous_15)
 FNF:14
 FNH:12
 FNDA:1,(anonymous_2)
-FNDA:8,Iris
+FNDA:8,IrisOut
 FNDA:5,(anonymous_4)
 FNDA:2,(anonymous_5)
 FNDA:6,(anonymous_6)

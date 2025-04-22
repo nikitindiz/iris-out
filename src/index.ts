@@ -3,21 +3,21 @@
  * A library for highlighting selected DOM elements by shading everything else
  */
 
-export interface IrisOptions {
+export interface IrisOutOptions {
   backgroundColor?: string;
   opacity?: number;
   zIndex?: number;
   fadeDuration?: number;
 }
 
-export class Iris {
-  private _options: IrisOptions;
+export class IrisOut {
+  private _options: IrisOutOptions;
   private overlay: HTMLDivElement | null = null;
   private highlightedElement: HTMLElement | null = null;
   private resizeObserver: ResizeObserver | null = null;
   updateHandler: () => void;
 
-  constructor(options: IrisOptions = {}) {
+  constructor(options: IrisOutOptions = {}) {
     // Check if running in browser environment
     if (typeof window === 'undefined' || typeof document === 'undefined') {
       throw new Error('Iris only works in browser environments');
@@ -39,7 +39,7 @@ export class Iris {
    * Update the options for this Iris instance
    * @param newOptions The new options to apply
    */
-  public set options(newOptions: IrisOptions) {
+  public set options(newOptions: IrisOutOptions) {
     this._options = {
       ...this._options,
       ...newOptions,
@@ -201,4 +201,4 @@ export class Iris {
   };
 }
 
-export default Iris;
+export default IrisOut;
