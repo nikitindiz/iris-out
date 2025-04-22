@@ -19,6 +19,11 @@ export class Iris {
   resizeHandler: () => void;
 
   constructor(options: IrisOptions = {}) {
+    // Check if running in browser environment
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      throw new Error('Iris only works in browser environments');
+    }
+
     this.options = {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       opacity: 0.7,
