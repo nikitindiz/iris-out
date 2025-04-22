@@ -173,4 +173,90 @@ describe('Iris', () => {
       fail('Test element not found in the DOM');
     }
   });
+
+  // Add a new test specifically for the transitionend event handler
+  test('should clean up event listeners when transitionend event fires', () => {
+    const iris = new Iris();
+    const element = document.getElementById('test-element');
+
+    if (element) {
+      // Create spies for event listeners
+      const addEventSpy = jest.spyOn(HTMLDivElement.prototype, 'addEventListener');
+      const removeEventSpy = jest.spyOn(HTMLDivElement.prototype, 'removeEventListener');
+      const windowRemoveEventSpy = jest.spyOn(window, 'removeEventListener');
+
+      // First highlight an element
+      iris.highlight(element);
+
+      // Get the overlay element
+      const overlay = document.body.querySelector('div:not(#test-element)') as HTMLDivElement;
+      expect(overlay).not.toBeNull();
+
+      // Verify the transitionend listener was added
+      expect(addEventSpy).toHaveBeenCalledWith('transitionend', expect.any(Function));
+
+      // Extract the transitionend handler that was registered
+      const transitionEndHandler = addEventSpy.mock.calls.find(
+        call => call[0] === 'transitionend'
+      )?.[1] as EventListener;
+
+      expect(transitionEndHandler).toBeDefined();
+
+      // Create and dispatch a transitionend event
+      const transitionEndEvent = new Event('transitionend');
+      overlay.dispatchEvent(transitionEndEvent);
+
+      // Verify window event listeners were removed
+      expect(windowRemoveEventSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+      expect(windowRemoveEventSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+
+      // Verify the transitionend event listener was removed from overlay
+      expect(removeEventSpy).toHaveBeenCalledWith('transitionend', expect.any(Function));
+    } else {
+      fail('Test element not found in the DOM');
+    }
+  });
+
+  // Test to explicitly check the console.log statements
+  test('should log when adding transition end listener', () => {
+    const iris = new Iris();
+    const element = document.getElementById('test-element');
+
+    if (element) {
+      // Spy on console.log
+      const consoleSpy = jest.spyOn(console, 'log');
+
+      // Test the highlight flow which should trigger the log
+      iris.highlight(element);
+
+      // Clear the overlay which should call removeResizeObserver
+      iris.clear();
+
+      // Check if the log message was output
+      expect(consoleSpy).toHaveBeenCalledWith('Adding transition end listener');
+
+      // Clean up
+      consoleSpy.mockRestore();
+    } else {
+      fail('Test element not found in the DOM');
+    }
+  });
+
+  // Test console log for updateCutout
+  test('should log when updating cutout', () => {
+    const iris = new Iris();
+    const element = document.getElementById('test-element');
+
+    if (element) {
+      const consoleSpy = jest.spyOn(console, 'log');
+
+      iris.highlight(element);
+
+      expect(consoleSpy).toHaveBeenCalledWith('Updating cutout');
+
+      consoleSpy.mockRestore();
+    } else {
+      fail('Test element not found in the DOM');
+    }
+  });
 });
