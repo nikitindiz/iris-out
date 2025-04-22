@@ -1,0 +1,29 @@
+{
+  "name": "iris-out",
+  "version": "0.1.0",
+  "description": "A library for highlighting selected DOM elements by shading everything else",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "highlight",
+    "overlay",
+    "focus",
+    "DOM"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist"
+  ]
+}
