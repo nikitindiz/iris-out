@@ -2,6 +2,10 @@
 
 A lightweight library for highlighting DOM elements by shading everything else on the page.
 
+Checkout the [demo page](nikitindiz.github.io/iris-out/) to see in action.
+
+<img src="assets/screenshot.png" />
+
 ## Installation
 
 ```bash
