@@ -11,12 +11,11 @@ export interface IrisOptions {
 }
 
 export class Iris {
-  private options: IrisOptions;
+  private _options: IrisOptions;
   private overlay: HTMLDivElement | null = null;
   private highlightedElement: HTMLElement | null = null;
   private resizeObserver: ResizeObserver | null = null;
-  scrollHandler: () => void;
-  resizeHandler: () => void;
+  updateHandler: () => void;
 
   constructor(options: IrisOptions = {}) {
     // Check if running in browser environment
@@ -24,7 +23,7 @@ export class Iris {
       throw new Error('Iris only works in browser environments');
     }
 
-    this.options = {
+    this._options = {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       opacity: 0.7,
       zIndex: 9999,
@@ -33,8 +32,40 @@ export class Iris {
     };
 
     // Update on scroll
-    this.scrollHandler = () => this.updateCutout();
-    this.resizeHandler = () => this.updateCutout();
+    this.updateHandler = this.updateCutout.bind(this);
+  }
+
+  /**
+   * Update the options for this Iris instance
+   * @param newOptions The new options to apply
+   */
+  public set options(newOptions: IrisOptions) {
+    this._options = {
+      ...this._options,
+      ...newOptions,
+    };
+
+    // Update overlay with new options if it exists
+    if (this.overlay) {
+      if (newOptions.backgroundColor !== undefined) {
+        this.overlay.style.backgroundColor = newOptions.backgroundColor;
+      }
+
+      if (newOptions.opacity !== undefined) {
+        this.overlay.style.opacity = `${newOptions.opacity}`;
+      }
+
+      if (newOptions.zIndex !== undefined) {
+        this.overlay.style.zIndex = `${newOptions.zIndex}`;
+      }
+
+      if (newOptions.animationDuration !== undefined) {
+        this.overlay.style.transition = `opacity ${newOptions.animationDuration}ms ease`;
+      }
+
+      // Re-apply the cutout effect with potentially new styles
+      this.updateCutout();
+    }
   }
 
   private renderOverlay = (element: HTMLElement): void => {
@@ -47,10 +78,10 @@ export class Iris {
     this.overlay.style.left = '0';
     this.overlay.style.width = '100%';
     this.overlay.style.height = '100%';
-    this.overlay.style.backgroundColor = this.options.backgroundColor || 'rgba(0, 0, 0, 0.7)';
+    this.overlay.style.backgroundColor = this._options.backgroundColor || 'rgba(0, 0, 0, 0.7)';
     this.overlay.style.opacity = '0';
-    this.overlay.style.transition = `opacity ${this.options.animationDuration}ms ease`;
-    this.overlay.style.zIndex = `${this.options.zIndex || 9999}`;
+    this.overlay.style.transition = `opacity ${this._options.animationDuration}ms ease`;
+    this.overlay.style.zIndex = `${this._options.zIndex || 9999}`;
     this.overlay.style.pointerEvents = 'none'; // Allow clicking through the overlay
 
     // Add to document
@@ -65,7 +96,7 @@ export class Iris {
     // Trigger animation
     setTimeout(() => {
       if (this.overlay) {
-        this.overlay.style.opacity = `${this.options.opacity || 0.7}`;
+        this.overlay.style.opacity = `${this._options.opacity || 0.7}`;
       }
     }, 10);
   };
@@ -98,7 +129,7 @@ export class Iris {
         this.highlightedElement = null;
 
         cb && cb();
-      }, this.options.animationDuration || 300);
+      }, this._options.animationDuration || 300);
     } else {
       cb && cb();
     }
@@ -137,8 +168,8 @@ export class Iris {
   private observeResize(): void {
     if (!this.highlightedElement) return;
 
-    window.addEventListener('scroll', this.scrollHandler);
-    window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener('scroll', this.updateHandler);
+    window.addEventListener('resize', this.updateHandler);
 
     // Update on resize with ResizeObserver
     this.resizeObserver = new ResizeObserver(() => {
@@ -157,8 +188,9 @@ export class Iris {
     // Clean up event listener when overlay is removed
     if (this.overlay) {
       const cleanupScrollHandler = () => {
-        window.removeEventListener('scroll', this.scrollHandler);
-        window.removeEventListener('resize', this.resizeHandler);
+        window.removeEventListener('scroll', this.updateHandler);
+        window.removeEventListener('resize', this.updateHandler);
+
         if (this.overlay) {
           this.overlay.removeEventListener('transitionend', cleanupScrollHandler);
         }

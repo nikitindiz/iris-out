@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
       animationDuration: parseInt(animationDurationInput.value),
     };
 
-    // Create a new instance with updated options
-    iris = new Iris(currentOptions);
+    // Update options of existing Iris instance instead of creating a new one
+    iris.options = currentOptions;
   }
 
   // Add event listeners to form controls

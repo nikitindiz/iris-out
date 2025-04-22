@@ -142,10 +142,6 @@ describe('Iris', () => {
       expect(addEventSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
       expect(addEventSpy).toHaveBeenCalledWith('resize', expect.any(Function));
 
-      // Store the scroll handler that was used
-      const scrollHandler = iris.scrollHandler;
-      const resizeHandler = iris.resizeHandler;
-
       // Reset the spy counts to focus on just the removal
       addEventSpy.mockClear();
       removeEventSpy.mockClear();
@@ -154,12 +150,12 @@ describe('Iris', () => {
       const mockOverlay = document.body.querySelector('div:not(#test-element)');
       if (mockOverlay) {
         // Manually trigger the cleanup that would happen on transitionend
-        window.removeEventListener('scroll', scrollHandler);
-        window.removeEventListener('resize', resizeHandler);
+        window.removeEventListener('scroll', iris.updateHandler);
+        window.removeEventListener('resize', iris.updateHandler);
 
         // Now check that our event was removed
-        expect(removeEventSpy).toHaveBeenCalledWith('scroll', scrollHandler);
-        expect(removeEventSpy).toHaveBeenCalledWith('resize', resizeHandler);
+        expect(removeEventSpy).toHaveBeenCalledWith('scroll', iris.updateHandler);
+        expect(removeEventSpy).toHaveBeenCalledWith('resize', iris.updateHandler);
         done();
       } else {
         fail('Overlay element not found');

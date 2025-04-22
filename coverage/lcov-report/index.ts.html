@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.31% </span>
+                <span class="strong">90.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/77</span>
+                <span class='fraction'>67/74</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">84.61% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/15</span>
+                <span class='fraction'>11/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.53% </span>
+                <span class="strong">92.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/67</span>
+                <span class='fraction'>61/66</span>
             </div>
         
             
@@ -234,8 +234,7 @@
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L172'></a><a href='#L172'>172</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +251,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
@@ -271,7 +269,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -396,6 +393,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -424,8 +422,7 @@ export class Iris {
   private overlay: HTMLDivElement | null = null;
   private highlightedElement: HTMLElement | null = null;
   private resizeObserver: ResizeObserver | null = null;
-  scrollHandler: () =&gt; void;
-  resizeHandler: () =&gt; void;
+  updateHandler: () =&gt; void;
 &nbsp;
   constructor(options: IrisOptions = {}) {
     // Check if running in browser environment
@@ -442,8 +439,7 @@ export class Iris {
     };
 &nbsp;
     // Update on scroll
-    this.scrollHandler = <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >t</span>his.updateCutout();</span>
-    this.resizeHandler = <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >t</span>his.updateCutout();</span>
+    this.updateHandler = this.updateCutout.bind(this);
   }
 &nbsp;
   private renderOverlay = (element: HTMLElement): void =&gt; {
@@ -546,8 +542,8 @@ export class Iris {
   private observeResize(): void {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.highlightedElement) <span class="cstat-no" title="statement not covered" >return;</span>
 &nbsp;
-    window.addEventListener('scroll', this.scrollHandler);
-    window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener('scroll', this.updateHandler);
+    window.addEventListener('resize', this.updateHandler);
 &nbsp;
     // Update on resize with ResizeObserver
     this.resizeObserver = new ResizeObserver(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
@@ -566,8 +562,9 @@ export class Iris {
     // Clean up event listener when overlay is removed
     if (this.overlay) {
       const cleanupScrollHandler = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        window.removeEventListener('scroll', this.scrollHandler);</span>
-<span class="cstat-no" title="statement not covered" >        window.removeEventListener('resize', this.resizeHandler);</span>
+<span class="cstat-no" title="statement not covered" >        window.removeEventListener('scroll', this.updateHandler);</span>
+<span class="cstat-no" title="statement not covered" >        window.removeEventListener('resize', this.updateHandler);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.overlay) {</span>
 <span class="cstat-no" title="statement not covered" >          this.overlay.removeEventListener('transitionend', cleanupScrollHandler);</span>
         }
@@ -586,7 +583,7 @@ export default Iris;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-22T10:05:49.684Z
+                at 2025-04-22T10:09:22.796Z
             </div>
         <script src="prettify.js"></script>
         <script>
